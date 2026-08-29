@@ -174,6 +174,11 @@ ALLOWED_SUBDOMAINS = [
     "staging3",
     "nb",
 ]
+# Self-hosted instances often live on a multi-label domain (e.g.
+# newsblur.tailnet-name.ts.net) whose first label would otherwise be treated as
+# a blurblog username subdomain in apps/reader/views.py's index. Let
+# deployments extend the list from settings without patching this file.
+ALLOWED_SUBDOMAINS += getattr(settings, "EXTRA_ALLOWED_SUBDOMAINS", [])
 # Deprecated: lazy merge is now always used for all river loads (no ZUNIONSTORE)
 RIVER_SLOWDOWN_USERS = []
 
